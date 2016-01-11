@@ -17,12 +17,11 @@
 
       <div class="container">
 
-        <h1>Tom Yeh</h1>
+        <h1>Sneha Parmar</h1>
 
         <h2>Favorite Programming Languages</h2>
-        <ul class="collection">
-          <li class="collection-item">Javascript</li>
-          <li class="collection-item">Haskell</li>
+        <ul class="collection" id = "pls">
+          
         </ul>
 
         <h2>Favorite Food</h2>
@@ -34,8 +33,15 @@
       <script>
 
         // create a firebase reference to the root
-        var ref = new Firebase('https://hello-ucdd2.firebaseio.com/')
+        var ref = new Firebase('https://torrid-inferno-9853.firebaseio.com/')//'https://hello-ucdd2.firebaseio.com/')
 
+        //read from pls only once 
+        ref.child('bio/favorite_pls').once('value', function(snapshot){
+          var foods = snapshot.val()
+          foods.forEach(function(pl){
+            $('#pls').append('<li class="collection-item">' + pl + '</li>')
+          })
+        })
         // read data from the location bio/favorite_foods, only once
         ref.child('bio/favorite_foods').once('value', function(snapshot){
           var foods = snapshot.val()
